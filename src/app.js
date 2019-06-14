@@ -48,10 +48,7 @@ app.get ( '/help', ( req, res ) => {
 
 // forecast
 app.get ( '/weather', ( req, res ) => {
-    res.send ( {
-        location: 'Vaudreuil-dorion',
-        forecast: 'Rainy weather'
-    } )
+    res.send ( `You have provided ${req.query.address} as the address.` )
 } )
 
 // 404 not found page help
