@@ -1,13 +1,11 @@
 const getForecast = async ( address ) => {
 
-    const data = await fetch ( `http://localhost:3000/weather?address=${address}` )
+    const data = await fetch ( `/weather?address=${address}` )
     const dataJSON = await data.json()
 
     return dataJSON
 
 }
-
-
 
 const weatherForm = document.querySelector ( 'form' )
 const searchElement = document.querySelector ( 'input' )

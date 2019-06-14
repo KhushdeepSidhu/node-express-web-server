@@ -2,6 +2,10 @@
   "name": "web-server",
   "version": "1.0.0",
   "main": "app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js -e js,hbs"
+  },
   "license": "MIT",
   "dependencies": {
     "express": "^4.17.1",
