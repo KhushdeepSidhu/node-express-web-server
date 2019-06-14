@@ -1,6 +1,7 @@
 const express = require ( 'express' )
 const path = require ( 'path' )
 const hbs = require ( 'hbs' )
+const utils = require ( './utils' )
 
 // Define paths
 const publicDirPath = path.join ( __dirname, '../public' )
@@ -48,7 +49,33 @@ app.get ( '/help', ( req, res ) => {
 
 // forecast
 app.get ( '/weather', ( req, res ) => {
-    res.send ( `You have provided ${req.query.address} as the address.` )
+    
+    if ( !req.query.address ) {
+        return res.send ( {
+            error: 'Please provide a valid address!'
+        } )
+    }
+
+    utils.geoCode ( req.query.address, ( error, { latitude, longitude, location } = {} ) => {
+        
+        if ( error ) {
+            return res.send ( { error } )
+        }
+
+        utils.forecast ( latitude, longitude, ( error, forecastData ) => {
+            if ( error ) {
+                return res.send ( { error } )
+            }
+
+            return res.send ( {
+                location,
+                address: req.query.address,
+                forecast: forecastData
+            } )
+        } )
+
+    } )
+    
 } )
 
 // 404 not found page help
